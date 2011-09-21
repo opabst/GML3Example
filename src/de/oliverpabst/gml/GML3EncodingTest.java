@@ -63,8 +63,17 @@ public class GML3EncodingTest {
 	public static void encodeGML3() {
 		FeatureCollectionType fc = buildFeatureCollection();
 		Configuration config = new GMLConfiguration();
-		
-		Encoder encoder = new Encoder(config);
+		XSDSchema schema = null;
+		try {
+			schema = Schemas.parse("test.xsd");
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		if(schema == null) {
+			System.out.println("parsing schema went wrong!");
+		}
+		Encoder encoder = new Encoder(config, schema);
 		ByteArrayOutputStream xml = new ByteArrayOutputStream();
 		// TODO: Define custom feature collection for given type
 		
