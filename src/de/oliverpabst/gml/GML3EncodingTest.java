@@ -48,10 +48,8 @@ import net.opengis.wfs.WfsFactory;
 public class GML3EncodingTest {
 	static GeometryFactory gf = new GeometryFactory();
 	public static String NAMESPACE = "http://www.geotools.org/test";
-	public static QName TestFeature = new QName(NAMESPACE, "TestFeature");
-	
-	
-	
+	public static QName feature = new QName(NAMESPACE, "TestFeature");
+		
 	/**
 	 * @param args
 	 */
@@ -71,12 +69,12 @@ public class GML3EncodingTest {
 		// TODO: Define custom feature collection for given type
 		
 		try {
-			encoder.encode(fc, TestFeature, xml);
+			encoder.encode(fc, feature, xml);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(xml);
+		System.out.println(xml.toString());
 		try {
 			xml.close();
 		} catch (IOException e) {
@@ -88,7 +86,7 @@ public class GML3EncodingTest {
 	public static void encodeWFS10() {
 		FeatureCollectionType fc = buildFeatureCollection();
 		Encoder e = new Encoder( new org.geotools.wfs.v1_0.WFSConfiguration() );
-        e.getNamespaces().declarePrefix( "geotools", "http://geotools.org");
+        e.getNamespaces().declarePrefix( "geotools", "http://geotools.org/test");
         e.setIndenting(true);
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         try {
