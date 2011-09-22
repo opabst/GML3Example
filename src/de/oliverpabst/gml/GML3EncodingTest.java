@@ -60,7 +60,8 @@ public class GML3EncodingTest {
 		// TODO Auto-generated method stub
 		buildFeatureCollection();
 		//encodeGML3();
-		encodeGML3FromJTS();
+		encodeGML3FromJTSPoint();
+		encodeGML3FromJTSMultiLineString();
 		//encodeWFS10();
 	}
 	
@@ -155,7 +156,7 @@ public class GML3EncodingTest {
         return fc;
 	}
 	
-	public static void encodeGML3FromJTS() {
+	public static void encodeGML3FromJTSPoint() {
 		WKTReader wkt = new WKTReader();
 		Geometry geom = null;
 		XSDSchema schema = null;
@@ -176,6 +177,37 @@ public class GML3EncodingTest {
 		encoder.setIndenting(true);
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		QName name = new QName("http://www.example.org/point", "Point");
+		try {
+			encoder.encode(geom, name, out);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(out.toString());
+	}
+	
+	public static void encodeGML3FromJTSMultiLineString() {
+		WKTReader wkt = new WKTReader();
+		Geometry geom = null;
+		XSDSchema schema = null;
+		try {
+			schema = Schemas.parse("multilinestring.xsd");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			geom = wkt.read("MULTILINESTRING (( 25 56, 22.0001 4574.331))");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Configuration config = new GMLConfiguration();
+		Encoder encoder = new Encoder(config, schema);
+		encoder.setIndenting(true);
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		QName name = new QName("http://www.example.org/multilinestring", "MultiLineString");
 		try {
 			encoder.encode(geom, name, out);
 		} catch (IOException e) {

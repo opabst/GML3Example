@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.example.org/multilinestring"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:gml="http://www.opengis.net/gml/3.2"
+	xmlns:multilinestring="http://www.example.org/multilinestring"
+	elementFormDefault="qualified">
+	<xsd:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
+	<xsd:element name="MultiLineString" type="multilinestring:MultiLineStringType"/>
+	<xsd:complexType name="MultiLineStringType">
+		<xsd:complexContent>
+			<xsd:extension base="gml:LineStringType"></xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+</xsd:schema>
