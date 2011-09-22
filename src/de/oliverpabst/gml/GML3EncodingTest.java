@@ -39,8 +39,11 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Point;
+import com.vividsolutions.jts.io.ParseException;
+import com.vividsolutions.jts.io.WKTReader;
 
 import net.opengis.wfs.FeatureCollectionType;
 import net.opengis.wfs.WfsFactory;
@@ -56,7 +59,8 @@ public class GML3EncodingTest {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		buildFeatureCollection();
-		encodeGML3();
+		//encodeGML3();
+		encodeGML3FromJTS();
 		//encodeWFS10();
 	}
 	
@@ -149,5 +153,27 @@ public class GML3EncodingTest {
         fc.getFeature().add( features );
         
         return fc;
+	}
+	
+	public static void encodeGML3FromJTS() {
+		WKTReader wkt = new WKTReader();
+		Geometry geom = null;
+		try {
+			geom = wkt.read("POINT (2 5)");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Configuration config = new GMLConfiguration();
+		Encoder encoder = new Encoder(config);
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		QName name = new QName("");
+		try {
+			encoder.encode(geom, name, out);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(out.toString());
 	}
 }
