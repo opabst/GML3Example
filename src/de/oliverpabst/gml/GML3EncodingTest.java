@@ -158,6 +158,13 @@ public class GML3EncodingTest {
 	public static void encodeGML3FromJTS() {
 		WKTReader wkt = new WKTReader();
 		Geometry geom = null;
+		XSDSchema schema = null;
+		try {
+			schema = Schemas.parse("point.xsd");
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		try {
 			geom = wkt.read("POINT (2 5)");
 		} catch (ParseException e) {
@@ -165,9 +172,10 @@ public class GML3EncodingTest {
 			e.printStackTrace();
 		}
 		Configuration config = new GMLConfiguration();
-		Encoder encoder = new Encoder(config);
+		Encoder encoder = new Encoder(config, schema);
+		encoder.setIndenting(true);
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		QName name = new QName("");
+		QName name = new QName("http://www.example.org/point", "Point");
 		try {
 			encoder.encode(geom, name, out);
 		} catch (IOException e) {
