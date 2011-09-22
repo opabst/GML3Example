@@ -8,7 +8,7 @@
 	<xsd:element name="MultiLineString" type="multilinestring:MultiLineStringType"/>
 	<xsd:complexType name="MultiLineStringType">
 		<xsd:complexContent>
-			<xsd:extension base="gml:LineStringType"></xsd:extension>
+			<xsd:extension base="gml:MultiCurveType"></xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 </xsd:schema>

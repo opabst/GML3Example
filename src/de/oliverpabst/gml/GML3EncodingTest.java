@@ -198,7 +198,7 @@ public class GML3EncodingTest {
 		}
 		
 		try {
-			geom = wkt.read("MULTILINESTRING (( 25 56, 22.0001 4574.331))");
+			geom = wkt.read("MULTILINESTRING ((3470947.89 5526163.53, 3470970.01 5526161.37))");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -207,7 +207,7 @@ public class GML3EncodingTest {
 		Encoder encoder = new Encoder(config, schema);
 		encoder.setIndenting(true);
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		QName name = new QName("http://www.example.org/multilinestring", "MultiLineString");
+		QName name = new QName("http://www.example.org/multilinestring", geom.getGeometryType());
 		try {
 			encoder.encode(geom, name, out);
 		} catch (IOException e) {
