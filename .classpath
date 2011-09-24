@@ -18,20 +18,12 @@
 	<classpathentry kind="lib" path="/geoFoed-libs/GeoTools/gt-jdbc-postgis-2.7.2.jar"/>
 	<classpathentry kind="lib" path="/geoFoed-libs/GeoTools/gt-main-2.7.2.jar"/>
 	<classpathentry kind="lib" path="/geoFoed-libs/GeoTools/gt-metadata-2.7.2.jar"/>
-	<classpathentry kind="lib" path="/geoFoed-libs/GeoTools/gt-opengis-2.7.2.jar"/>
 	<classpathentry kind="lib" path="/geoFoed-libs/GeoTools/gt-referencing-2.7.2.jar"/>
 	<classpathentry kind="lib" path="/geoFoed-libs/GeoTools/gt-shapefile-2.7.2.jar"/>
-	<classpathentry kind="lib" path="/geoFoed-libs/GeoTools/gt-wfs-2.7.2.jar"/>
 	<classpathentry kind="lib" path="/geoFoed-libs/GeoTools/gt-xml-2.7.2.jar"/>
 	<classpathentry kind="lib" path="/geoFoed-libs/GeoTools/gt-xsd-core-2.7.2.jar"/>
-	<classpathentry kind="lib" path="/geoFoed-libs/GeoTools/gt-xsd-filter-2.7.2.jar"/>
-	<classpathentry kind="lib" path="/geoFoed-libs/GeoTools/gt-xsd-gml2-2.7.2.jar"/>
 	<classpathentry kind="lib" path="/geoFoed-libs/GeoTools/gt-xsd-gml3-2.7.2.jar"/>
-	<classpathentry kind="lib" path="/geoFoed-libs/GeoTools/gt-xsd-wfs-2.7.2.jar"/>
 	<classpathentry kind="lib" path="/geoFoed-libs/GeoTools/jsr-275-1.0-beta-2.jar"/>
-	<classpathentry kind="lib" path="/geoFoed-libs/GeoTools/net.opengis.ows-2.7.2.jar"/>
-	<classpathentry kind="lib" path="/geoFoed-libs/GeoTools/net.opengis.wfs-2.7.2.jar"/>
-	<classpathentry kind="lib" path="/geoFoed-libs/GeoTools/net.opengis.wfsv-2.7.2.jar"/>
 	<classpathentry kind="lib" path="/geoFoed-libs/GeoTools/picocontainer-1.2.jar"/>
 	<classpathentry kind="lib" path="/geoFoed-libs/GeoTools/vecmath-1.3.2.jar"/>
 	<classpathentry kind="lib" path="/geoFoed-libs/GeoTools/xsd-2.6.0.jar"/>
