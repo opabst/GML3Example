@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.example.org/polygon"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:gml="http://www.opengis.net/gml/3.2"
+	xmlns:polygon="http://www.example.org/polygon"
+	elementFormDefault="qualified">
+	
+	<xsd:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
+	<xsd:element name="Polygon" type="polygon:PolygonType"/>
+	<xsd:complexType name="PolygonType">
+		<xsd:complexContent>
+			<xsd:extension base="gml:PolygonType"></xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+</xsd:schema>
