@@ -243,7 +243,7 @@ public class GML3EncodingTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(wurst.toString());
+		System.out.println(out.toString());
 		
 		encoder = new Encoder(config, schema);
 		encoder.setIndenting(true);
