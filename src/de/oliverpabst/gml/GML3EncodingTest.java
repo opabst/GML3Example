@@ -60,8 +60,9 @@ public class GML3EncodingTest {
 		// TODO Auto-generated method stub
 		buildFeatureCollection();
 		//encodeGML3();
-		encodeGML3FromJTSPoint();
-		encodeGML3FromJTSMultiLineString();
+		//encodeGML3FromJTSPoint();
+		//encodeGML3FromJTSMultiLineString();
+		encodeGML3Multiple();
 		//encodeWFS10();
 	}
 	
@@ -210,6 +211,52 @@ public class GML3EncodingTest {
 		QName name = new QName("http://www.example.org/multilinestring", geom.getGeometryType());
 		try {
 			encoder.encode(geom, name, out);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(out.toString());
+	}
+	
+	public static void encodeGML3Multiple() {
+		WKTReader wkt = new WKTReader();
+		Geometry point = null;
+		Geometry line = null;
+		XSDSchema schema = null;
+		
+		try {
+			point = wkt.read("POINT (2 5)");
+			line = wkt.read("MULTILINESTRING ((3470947.89 5526163.53, 3470970.01 5526161.37))");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			schema = Schemas.parse("single.xsd");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Configuration config = new GMLConfiguration();
+		Encoder encoder = new Encoder(config, schema);
+		encoder.setIndenting(true);
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		QName name = new QName("http://www.example.org/single", point.getGeometryType());
+		try {
+			encoder.encode(point, name, out);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(out.toString());
+		encoder = new Encoder(config, schema);
+		encoder.setIndenting(true);
+		out = null;
+		out = new ByteArrayOutputStream();
+		QName wurst = new QName("http://www.example.org/single", line.getGeometryType());
+		try {
+			encoder.encode(line, wurst, out);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

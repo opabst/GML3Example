@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.example.org/single" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:gml="http://www.opengis.net/gml/3.2" 
+	xmlns:single="http://www.example.org/single"
+	elementFormDefault="qualified">
+	
+	<xsd:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
+	<xsd:element name="Point" type="single:PointType"/>
+	<xsd:complexType name="PointType">
+		<xsd:complexContent>
+			<xsd:extension base="gml:PointType"></xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:element name="MultiLineString" type="single:MultiLineStringType"/>
+	<xsd:complexType name="MultiLineStringType">
+		<xsd:complexContent>
+			<xsd:extension base="gml:MultiCurveType"></xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+</xsd:schema>
