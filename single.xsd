@@ -16,7 +16,14 @@
 	<xsd:element name="MultiLineString" type="single:MultiLineStringType"/>
 	<xsd:complexType name="MultiLineStringType">
 		<xsd:complexContent>
-			<xsd:extension base="gml:MultiCurveType"></xsd:extension>
+			<xsd:extension base="gml:CurveType"></xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:element name="Polygon" type="single:PolygonType"/>
+	<xsd:complexType name="PolygonType">
+		<xsd:complexContent>
+			<xsd:extension base="gml:PolygonType"></xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	

@@ -2,21 +2,9 @@ package de.oliverpabst.gml;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-import java.util.Stack;
-
 import javax.xml.namespace.QName;
-import javax.xml.transform.TransformerException;
-
 import org.eclipse.xsd.XSDSchema;
 
-import org.eclipse.xsd.util.XSDSchemaLocator;
 import org.geotools.feature.DefaultFeatureCollection;
 import org.geotools.feature.FeatureCollection;
 import org.geotools.feature.simple.SimpleFeatureBuilder;
@@ -25,19 +13,8 @@ import org.geotools.gml3.v3_2.GMLConfiguration;
 import org.geotools.wfs.v1_0.WFS;
 import org.geotools.xml.Configuration;
 import org.geotools.xml.Encoder;
-import org.geotools.xml.SchemaLocationResolver;
-import org.geotools.xml.SchemaLocator;
 import org.geotools.xml.Schemas;
-import org.geotools.xml.XSD;
-import org.geotools.xs.XS;
-import org.opengis.feature.simple.SimpleFeature;
-import org.opengis.feature.simple.SimpleFeatureType;
-import org.opengis.feature.type.Schema;
-
 import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
@@ -60,17 +37,13 @@ public class GML3EncodingTest {
 		// TODO Auto-generated method stub
 		buildFeatureCollection();
 		//encodeGML3();
-
 		//encodeGML3FromJTSPoint();
 		//encodeGML3FromJTSMultiLineString();
 		encodeGML3Multiple();
 
-		encodeGML3FromJTSPoint();
-		encodeGML3FromJTSMultiLineString();
-		encodeGML3FromJTSPolygon();
-
-
-		
+		//encodeGML3FromJTSPoint();
+		//encodeGML3FromJTSMultiLineString();
+		//encodeGML3FromJTSPolygon();
 		//encodeWFS10();
 	}
 	
@@ -230,11 +203,13 @@ public class GML3EncodingTest {
 		WKTReader wkt = new WKTReader();
 		Geometry point = null;
 		Geometry line = null;
+		Geometry polygon = null;
 		XSDSchema schema = null;
 		
 		try {
 			point = wkt.read("POINT (2 5)");
 			line = wkt.read("MULTILINESTRING ((3470947.89 5526163.53, 3470970.01 5526161.37))");
+			polygon = wkt.read("POLYGON ((3471872.26 5530082.57, 3471896.49 5530265.69, 3471896.49 5530265.69, 3471870.77 5530243.09, 3471870.77 5530243.09, 3471846.22 5530224.71, 3471846.22 5530224.71, 3471831.58 5530206.06, 3471831.58 5530206.06, 3471826.59 5530185.62, 3471826.59 5530185.62, 3471828.33 5530167.71, 3471828.33 5530167.71, 3471837.43 5530146.74, 3471837.43 5530146.74, 3471857.43 5530113.3, 3471857.43 5530113.3, 3471872.26 5530082.57))");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -269,6 +244,19 @@ public class GML3EncodingTest {
 			e.printStackTrace();
 		}
 		System.out.println(wurst.toString());
+		
+		encoder = new Encoder(config, schema);
+		encoder.setIndenting(true);
+		out = null;
+		out = new ByteArrayOutputStream();
+		QName poly = new QName("http://www.example.org/single", polygon.getGeometryType());
+		try {
+			encoder.encode(polygon, poly, out);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(out.toString());
 	}
 		
 	public static void encodeGML3FromJTSPolygon() {
