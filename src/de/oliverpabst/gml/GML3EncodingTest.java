@@ -60,9 +60,17 @@ public class GML3EncodingTest {
 		// TODO Auto-generated method stub
 		buildFeatureCollection();
 		//encodeGML3();
+
 		//encodeGML3FromJTSPoint();
 		//encodeGML3FromJTSMultiLineString();
 		encodeGML3Multiple();
+
+		encodeGML3FromJTSPoint();
+		encodeGML3FromJTSMultiLineString();
+		encodeGML3FromJTSPolygon();
+
+
+		
 		//encodeWFS10();
 	}
 	
@@ -257,6 +265,35 @@ public class GML3EncodingTest {
 		QName wurst = new QName("http://www.example.org/single", line.getGeometryType());
 		try {
 			encoder.encode(line, wurst, out);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println(wurst.toString());
+	}
+		
+	public static void encodeGML3FromJTSPolygon() {
+		WKTReader wkt = new WKTReader();
+		Geometry polygon = null;
+		XSDSchema schema = null;
+		try {
+			schema = Schemas.parse("polygon.xsd");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			polygon = wkt.read("POLYGON ((3471872.26 5530082.57, 3471896.49 5530265.69, 3471896.49 5530265.69, 3471870.77 5530243.09, 3471870.77 5530243.09, 3471846.22 5530224.71, 3471846.22 5530224.71, 3471831.58 5530206.06, 3471831.58 5530206.06, 3471826.59 5530185.62, 3471826.59 5530185.62, 3471828.33 5530167.71, 3471828.33 5530167.71, 3471837.43 5530146.74, 3471837.43 5530146.74, 3471857.43 5530113.3, 3471857.43 5530113.3, 3471872.26 5530082.57))");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Configuration config = new GMLConfiguration();
+		Encoder encoder = new Encoder(config, schema);
+		encoder.setIndenting(true);
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		QName name = new QName("http://www.example.org/polygon", "Polygon");
+		try {
+			encoder.encode(polygon, name, out);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
