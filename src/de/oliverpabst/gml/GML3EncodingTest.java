@@ -3,12 +3,15 @@ package de.oliverpabst.gml;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import javax.xml.namespace.QName;
+import javax.xml.transform.TransformerException;
+
 import org.eclipse.xsd.XSDSchema;
 
 import org.geotools.gml3.v3_2.GMLConfiguration;
 import org.geotools.xml.Configuration;
 import org.geotools.xml.Encoder;
 import org.geotools.xml.Schemas;
+import org.geotools.gml.producer.GeometryTransformer;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.io.ParseException;
@@ -28,8 +31,8 @@ public class GML3EncodingTest {
 		//encodeGML3();
 		//encodeGML3FromJTSPoint();
 		//encodeGML3FromJTSMultiLineString();
-		encodeGML3Multiple();
-
+		//encodeGML3Multiple();
+		transformGeometry();
 		//encodeGML3FromJTSPoint();
 		//encodeGML3FromJTSMultiLineString();
 		//encodeGML3FromJTSPolygon();
@@ -185,5 +188,47 @@ public class GML3EncodingTest {
 			e.printStackTrace();
 		}
 		System.out.println(out.toString());
+	}
+	
+	public static void transformGeometry() {
+		WKTReader wkt = new WKTReader();
+		Geometry point = null;
+		Geometry line = null;
+		Geometry polygon = null;
+				
+		try {
+			point = wkt.read("POINT (2 5)");
+			line = wkt.read("MULTILINESTRING ((3470947.89 5526163.53, 3470970.01 5526161.37))");
+			polygon = wkt.read("POLYGON ((3471872.26 5530082.57, 3471896.49 5530265.69, 3471896.49 5530265.69, 3471870.77 5530243.09, 3471870.77 5530243.09, 3471846.22 5530224.71, 3471846.22 5530224.71, 3471831.58 5530206.06, 3471831.58 5530206.06, 3471826.59 5530185.62, 3471826.59 5530185.62, 3471828.33 5530167.71, 3471828.33 5530167.71, 3471837.43 5530146.74, 3471837.43 5530146.74, 3471857.43 5530113.3, 3471857.43 5530113.3, 3471872.26 5530082.57))");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String gml = null;		
+		GeometryTransformer gt = new GeometryTransformer();
+		gt.setIndentation(4);
+		try {
+			gml = gt.transform(point);
+		} catch (TransformerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(gml);
+		
+		try {
+			gml = gt.transform(line);
+		} catch (TransformerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(gml);
+		
+		try {
+			gml = gt.transform(polygon);
+		} catch (TransformerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(gml);
 	}
 }
