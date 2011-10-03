@@ -31,7 +31,7 @@ public class GML3EncodingTest {
 		//encodeGML3();
 		//encodeGML3FromJTSPoint();
 		//encodeGML3FromJTSMultiLineString();
-		//encodeGML3Multiple();
+		encodeGML3Multiple();
 		transformGeometry();
 		//encodeGML3FromJTSPoint();
 		//encodeGML3FromJTSMultiLineString();
@@ -123,6 +123,7 @@ public class GML3EncodingTest {
 		}
 		
 		Configuration config = new GMLConfiguration();
+		long startTime = System.nanoTime();
 		Encoder encoder = new Encoder(config, schema);
 		encoder.setIndenting(true);
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -133,7 +134,7 @@ public class GML3EncodingTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(out.toString());
+		//System.out.println(out.toString());
 		encoder = new Encoder(config, schema);
 		encoder.setIndenting(true);
 		out = null;
@@ -144,7 +145,7 @@ public class GML3EncodingTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(out.toString());
+		//System.out.println(out.toString());
 		
 		encoder = new Encoder(config, schema);
 		encoder.setIndenting(true);
@@ -157,7 +158,10 @@ public class GML3EncodingTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(out.toString());
+		//System.out.println(out.toString());
+		long endTime = System.nanoTime();
+		long spentTime = endTime - startTime;
+		System.out.println("Encoder:    " + spentTime);
 	}
 		
 	public static void encodeGML3FromJTSPolygon() {
@@ -207,13 +211,15 @@ public class GML3EncodingTest {
 		String gml = null;		
 		GeometryTransformer gt = new GeometryTransformer();
 		gt.setIndentation(4);
+		gt.setNamespaceDeclarationEnabled(false);
+		long startTime = System.nanoTime();
 		try {
 			gml = gt.transform(point);
 		} catch (TransformerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(gml);
+		//System.out.println(gml);
 		
 		try {
 			gml = gt.transform(line);
@@ -221,7 +227,7 @@ public class GML3EncodingTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(gml);
+		//System.out.println(gml);
 		
 		try {
 			gml = gt.transform(polygon);
@@ -229,6 +235,9 @@ public class GML3EncodingTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(gml);
+		//System.out.println(gml);
+		long endTime = System.nanoTime();
+		long spentTime = endTime - startTime;
+		System.out.println("Transformer: " + spentTime);
 	}
 }
